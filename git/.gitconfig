@@ -1,0 +1,13 @@
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[user]
+	name = alkorion
+	email = al.lira.co@gmail.com
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[push]
+	default = simple
