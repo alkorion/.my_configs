@@ -1,7 +1,8 @@
 # Alessandro's Git Ignore
 
 # Ignore compiled builds in the bin/ directory:
-/bin/
+bin/
 # This following one feels like a dirty workaround, will probably come back
 # to this later:
-c_journey/*/*/bin/
+#workspace/c_journey/*/*/bin
+
