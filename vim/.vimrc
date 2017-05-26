@@ -23,6 +23,6 @@ set expandtab
 " turn on column higlighting
 set colorcolumn=
 " create range of columns to highlight
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="80,120"
 " set highlight color (light-blue) of columns
 highlight ColorColumn ctermbg=6
