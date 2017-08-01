@@ -5,6 +5,9 @@
 " Add line numbers:
 set number
 
+" Ignore case when searching
+set ignorecase
+
 " Turn on code-syntax coloring:
 syntax on
 
