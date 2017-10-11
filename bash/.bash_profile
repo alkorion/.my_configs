@@ -13,6 +13,9 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Al here, just manually adding in new color functionality for 'ls'
 alias ls='ls -GF'
 
+# login aliases
+source ~/.bash_rc
+
 # Al again, this time hoping to change some colors
 #export CLICOLOR=1
 #export LSCOLORS=ExFxBxDxCxegedabagacad
