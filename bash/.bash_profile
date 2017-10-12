@@ -14,7 +14,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 alias ls='ls -GF'
 
 # login aliases
-source ~/.bash_rc
+source ~/.bashrc
 
 # Al again, this time hoping to change some colors
 #export CLICOLOR=1
