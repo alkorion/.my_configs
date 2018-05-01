@@ -13,8 +13,13 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Al here, just manually adding in new color functionality for 'ls'
 alias ls='ls -GF'
 
-# login aliases
-source ~/.bashrc
+# source login aliases depending on host OS (Mac='Darwin', Linux='Linux')
+if [[ $(uname -s) == Linux ]]
+then
+    :
+else
+    source ~/.bashrc
+fi
 
 # Al again, this time hoping to change some colors
 #export CLICOLOR=1
