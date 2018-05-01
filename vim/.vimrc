@@ -8,6 +8,9 @@ set number
 " Ignore case when searching
 set ignorecase
 
+" Hightligth pattern search matches
+set hlsearch
+
 " Turn on code-syntax coloring:
 syntax on
 
