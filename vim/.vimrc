@@ -32,3 +32,6 @@ set colorcolumn=
 let &colorcolumn="80,120"
 " set highlight color (light-blue) of columns
 highlight ColorColumn ctermbg=6
+
+" set c-tags variable 'tags' to current_dir and up to HOME dir
+set tags=./tags,tags;$HOME
