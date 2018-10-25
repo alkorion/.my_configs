@@ -18,7 +18,7 @@ if [[ $(uname -s) == Linux ]]
 then
     :
 else
-    source ~/.bashrc
+    source ~/my_configs/aliases/.al_aliases
 fi
 
 # Al again, this time hoping to change some colors
