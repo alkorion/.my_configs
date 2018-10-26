@@ -1,6 +1,9 @@
 # Alessandro Lira's BASH Profile
 # ------------------------------
 
+# Point bash_profile towards cruise_configs
+source ~/cruise_configs/.cruise_rc
+
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
