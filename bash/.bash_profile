@@ -2,7 +2,7 @@
 # ------------------------------
 
 # Point bash_profile towards cruise_configs
-source ~/.cruise_configs/.cruise_rc
+# source ~/.cruise_configs/.cruise_rc
 
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
