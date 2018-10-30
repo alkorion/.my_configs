@@ -13,7 +13,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Al here, just manually adding in new color functionality for 'ls'
 alias ls='ls -GF'
 
-# source login aliases depending on host OS (Mac='Darwin', Linux=' inux')
+# source login aliases depending on host OS (Mac='Darwin', Linux=' Linux')
 if [[ $(uname -s) == 'Linux' ]]
 then
     :
