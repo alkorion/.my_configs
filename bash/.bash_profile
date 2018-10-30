@@ -14,7 +14,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 # Al here, just manually adding in new color functionality for 'ls'
-alias ls='ls -GF'
+alias ls='ls --color=auto'
 
 # Al again, this time hoping to change some colors
 #export CLICOLOR=1
@@ -48,7 +48,7 @@ else # MacOS
     export PS1="$green\u$reset: $blue\w$red\$(__git_ps1)$reset\$ "
     # source login aliases
     source ~/.my_configs/aliases/.al_aliases
-    
+
 fi
 
 
