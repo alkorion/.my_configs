@@ -18,7 +18,7 @@ if [[ $(uname -s) == 'Linux' ]]
 then
     :
 else
-    source ~/my_configs/aliases/.al_aliases
+    source ~/.my_configs/aliases/.al_aliases
 fi
 
 # Al again, this time hoping to change some colors
@@ -28,7 +28,7 @@ fi
 
 # Al here: the following three blocks were added by Udacity’s git script and modified by me
 # Enable tab completion
-source ~/my_configs/git/git-completion.bash
+source ~/.my_configs/git/git-completion.bash
 # custom colors!
 green="\[\033[01;32m\]"
 blue="\[\033[01;34m\]"
@@ -36,7 +36,7 @@ purple="\[\033[01;35m\]"
 red="\[\033[01;31m\]"
 reset="\[\033[00m\]"
 # Change command prompt to dynamically match git status
-source ~/my_configs/git/git-prompt.sh
+source ~/.my_configs/git/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 # '\u' adds the name of the current user to the prompt
 # '\h' add the hostname of the system
