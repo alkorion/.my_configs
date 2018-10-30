@@ -42,4 +42,4 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # '\h' add the hostname of the system
 # '\w' adds the name of the current directory
 # '\$(__git_ps1)' adds git-related stuff
-export PS1="$green\u$reset@$purple\h$reset:$blue\w$red$(__git_ps1)$reset\$ "
+export PS1="$green\u$reset@$purple\h$reset:$blue\w$red\$(__git_ps1)$reset\$ "
