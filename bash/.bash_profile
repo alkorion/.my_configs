@@ -16,12 +16,12 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Al here, just manually adding in new color functionality for 'ls'
 alias ls='ls -GF'
 
-# source login aliases depending on host OS (Mac='Darwin', Linux='Linux')
-if [[ $(uname -s) == Linux ]]
+# source login aliases depending on host OS (Mac='Darwin', Linux=' inux')
+if [[ $(uname -s) == 'Linux' ]]
 then
     :
 else
-    source ~/my_configs/aliases/.al_aliases
+    source ~/.my_configs/aliases/.al_aliases
 fi
 
 # Al again, this time hoping to change some colors
@@ -29,20 +29,20 @@ fi
 #export LSCOLORS=ExFxBxDxCxegedabagacad
 
 
-# Al here: the following three blocks were added by Udacity’s git script
+# Al here: the following three blocks were added by Udacity’s git script and modified by me
 # Enable tab completion
-source ~/my_configs/git/git-completion.bash
-# brighter colors!
-green="\[\033[0;32m\]"
-blue="\[\033[0;34m\]"
-purple="\[\033[0;35m\]"
-reset="\[\033[0m\]"
+source ~/.my_configs/git/git-completion.bash
+# custom colors!
+green="\[\033[01;32m\]"
+blue="\[\033[01;34m\]"
+purple="\[\033[01;35m\]"
+red="\[\033[01;31m\]"
+reset="\[\033[00m\]"
 # Change command prompt to dynamically match git status
-source ~/my_configs/git/git-prompt.sh
+source ~/.my_configs/git/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 # '\u' adds the name of the current user to the prompt
+# '\h' add the hostname of the system
+# '\w' adds the name of the current directory
 # '\$(__git_ps1)' adds git-related stuff
-# '\W' adds the name of the current directory
-export PS1="$purple\u$green\$(__git_ps1)$blue \W $ $reset"
-
-
+export PS1="$green\u$reset@$purple\h$reset:$blue\w$red\$(__git_ps1)$reset\$ "
