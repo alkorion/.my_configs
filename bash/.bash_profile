@@ -51,4 +51,5 @@ else # MacOS
 
 fi
 
-
+# Have .bash_profile source .bashrc for new tmux sessions
+. ~/.bashrc
