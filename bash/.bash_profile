@@ -1,9 +1,6 @@
 # Alessandro Lira's BASH Profile
 # ------------------------------
 
-# Point bash_profile towards cruise_configs
-# source ~/.cruise_configs/.cruise_rc
-
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
@@ -12,9 +9,6 @@ export PATH
 # MacPorts Installer addition on 2016-01-25_at_17:25:43: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
-
-# Al here, just manually adding in new color functionality for 'ls'
-alias ls='ls --color=auto'
 
 # Al again, this time hoping to change some colors
 #export CLICOLOR=1
@@ -43,13 +37,23 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 if [[ $(uname -s) == "Linux" ]]
 then # Ubuntu
     export PS1="$green\u$reset@$purple\h$reset:$blue\w$red\$(__git_ps1)$reset\$ "
+
+    # set auto color mode for ls command
+    alias ls='ls --color=auto'
+
+    # Cruise specific setting (move these check automatically someday?)
+
+    # Have .bash_profile source .bashrc for new tmux sessions
+    . ~/.bashrc
+
+    # Point bash_profile towards cruise_configs
+    source ~/.cruise_configs/.cruise_rc
 else # MacOS
     blue="\[\033[0;34m\]"
     export PS1="$green\u$reset: $blue\w$red\$(__git_ps1)$reset\$ "
     # source login aliases
     source ~/.my_configs/aliases/.al_aliases
 
+    # Al here, just manually adding in new color functionality for 'ls'
+    alias ls='ls -G'
 fi
-
-# Have .bash_profile source .bashrc for new tmux sessions
-. ~/.bashrc
