@@ -56,4 +56,7 @@ else # MacOS
 
     # Al here, just manually adding in new color functionality for 'ls'
     alias ls='ls -G'
+
+    # Point bash_profile towards cruise_configs
+    source ~/.cruise_configs/.cruise_rc
 fi
