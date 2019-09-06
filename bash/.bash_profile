@@ -42,7 +42,7 @@ then # Ubuntu
     alias ls='ls --color=auto'
 
     # Cruise specific setting (move these check automatically someday?)
-    
+
     # Have .bash_profile source .bashrc for new tmux sessions
     . ~/.bashrc
 
