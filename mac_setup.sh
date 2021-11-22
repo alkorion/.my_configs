@@ -42,12 +42,6 @@ then
     ln -sf ~/.my_configs/zsh/.zshrc ~/.zshrc
     ln -sf ~/.my_configs/zsh/.zshenv ~/.zshenv
 
-    # Install power-line fonts
-    git clone https://github.com/powerline/fonts.git --depth=1
-    cd fonts
-    ./install.sh
-    cd ..
-    rm -rf fonts
 fi
 
 
