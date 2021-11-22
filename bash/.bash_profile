@@ -6,11 +6,8 @@
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 export PATH
 
-# MacPorts Installer addition on 2016-01-25_at_17:25:43: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
 
-# Al again, this time hoping to change some colors
+# Al here, hoping to change some colors!
 #export CLICOLOR=1
 #export LSCOLORS=ExFxBxDxCxegedabagacad
 
