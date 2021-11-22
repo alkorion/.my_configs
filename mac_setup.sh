@@ -27,7 +27,7 @@ function prompt() {
   read -r
 }
 
-# -------- Basic shell setup and symlinks --------
+# -------- Basic shell setup, symlinks, etc. --------
 
 
 # add symlinks for common configs
@@ -45,6 +45,8 @@ then
 fi
 
 
-# TODO: install homebrew
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Set Vim as default git text-editor
+git config --global core.editor "vim"
