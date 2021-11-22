@@ -1,5 +1,0 @@
-# Alessandro's aliases for Cruise purposes
-
-# Remote desktop aliases
-alias desktop_ssh="ssh alira-dt-01.corp.robot.car"
-alias vpn='~/vpn.sh'
