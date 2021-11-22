@@ -35,18 +35,48 @@ ln -sf ~/.my_configs/vim/.vimrc ~/.vimrc
 ln -sf ~/.my_configs/bash/.bash_profile ~/.bash_profile
 
 
-# Install Oh My Zsh & power-line fonts
+# Install Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ] 
 then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ln -sf ~/.my_configs/zsh/.zshrc ~/.zshrc
     ln -sf ~/.my_configs/zsh/.zshenv ~/.zshenv
-
 fi
 
-
 # Install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+which -s brew
+if [[ $? != 0 ]] ; then
+    # Install Homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    brew update
+fi
 
 # Set Vim as default git text-editor
 git config --global core.editor "vim"
+
+if [ ! -d "$HOME/workspace/repos" ]
+then
+	mkdir ~/workspace/; cd ~/workspace/; mkdir repos; cd -
+fi
+
+# Add fuzzy-search cmd-line tool
+if [ ! -d "$HOME/.fzf/" ]
+then
+    cd ~/workspace/repos/
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+fi
+
+# Add solarized color-theme
+if [ ! -d "$HOME/workspace/repos/solarized" ]
+then
+	cd ~/workspace/repos/
+	git clone git://github.com/altercation/solarized.git
+fi
+
+# TODO: Install Sublime via command line
+#   Add sublime command "subl" to the $PATH variable (TODO: choose right application path and $PATH variable dirctory to make link)
+#   sudo ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+
+# TODO: Add solarized theme install
