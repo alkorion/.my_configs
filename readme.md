@@ -17,12 +17,25 @@ Al's personal configs, aliases, and scripts!
 
 2. Make the setup script executable:
 
-        $ chmod u+x ~/.my_configs/mac_setup.sh
+   If installing on MacOS:
+   ```
+   $ chmod u+x ~/.my_configs/mac_setup.sh
+   ```
+   If installing on Ubuntu:
+   ```
+   $ chmod u+x ~/.my_configs/ubuntu_setup.sh
+   ```
 
 3. Run the setup script (and follow instructions as prompted):
 
-        $ ~/.my_configs/mac_setup.sh
-
+   If installing on MacOS:
+   ```
+   $ ~/.my_configs/mac_setup.sh
+   ```
+   If installing on Ubuntu:
+   ```
+   $ ~/.my_configs/ubuntu_setup.sh
+   ```
 
 
 ## Additional Notes
