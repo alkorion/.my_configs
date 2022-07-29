@@ -41,6 +41,8 @@ then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ln -sf ~/.my_configs/zsh/.zshrc ~/.zshrc
     ln -sf ~/.my_configs/zsh/.zshenv ~/.zshenv
+    # Add symlink for my custom oh-my-zsh theme in .my_configs
+    ln -sf ~/.my_configs/zsh/oh-my-zsh/themes/solarize-git.zsh-theme ~/.oh-my-zsh/themes/solarize-git.zsh-theme
 fi
 
 # Install homebrew
