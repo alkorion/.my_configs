@@ -7,11 +7,25 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/alessandro.lira/.oh-my-zsh"
 
+# Source relevant support files for git-prompt as part of theme
+source ~/.my_configs/git/git-prompt.sh
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+
+# setopt PROMPT_SUBST ; PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
+
+# Specify non-standard location of git-completion.bash
+zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.bash
+
+# Add completion script to fpath. See git-completion.zsh docstring for more details
+fpath=(~/.my_configs/zsh $fpath)
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="af-magic"
+ZSH_THEME="solarize-git"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
