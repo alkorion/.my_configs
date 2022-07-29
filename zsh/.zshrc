@@ -9,11 +9,7 @@ export ZSH="/Users/alessandro.lira/.oh-my-zsh"
 
 # Source relevant support files for git-prompt as part of theme
 source ~/.my_configs/git/git-prompt.sh
-
 export GIT_PS1_SHOWDIRTYSTATE=1
-
-
-# setopt PROMPT_SUBST ; PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
 
 # Specify non-standard location of git-completion.bash
 zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.bash
