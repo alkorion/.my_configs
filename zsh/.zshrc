@@ -11,6 +11,9 @@ export ZSH="/Users/alessandro.lira/.oh-my-zsh"
 source ~/.my_configs/git/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 
+# add vault URL to ENV variables (Cruise specific)
+export VAULT_ADDR=https://vault.robot.car:8200
+
 # Specify non-standard location of git-completion.bash
 zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.bash
 
