@@ -5,7 +5,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/alessandro.lira/.oh-my-zsh"
+export ZSH="/Users/alessandro/.oh-my-zsh"
 
 # Source relevant support files for git-prompt as part of theme
 source ~/.my_configs/git/git-prompt.sh
