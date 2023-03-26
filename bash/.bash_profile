@@ -38,13 +38,6 @@ then # Ubuntu
     # set auto color mode for ls command
     alias ls='ls --color=auto'
 
-    # Cruise specific setting (move these check automatically someday?)
-
-    # Have .bash_profile source .bashrc for new tmux sessions
-    . ~/.bashrc
-
-    # Point bash_profile towards cruise_configs
-    source ~/.cruise_configs/.cruise_rc
 else # MacOS
     blue="\[\033[0;34m\]"
     export PS1="$green\u$reset: $blue\w$red\$(__git_ps1)$reset\$ "
@@ -54,6 +47,4 @@ else # MacOS
     # Al here, just manually adding in new color functionality for 'ls'
     alias ls='ls -G'
 
-    # Point bash_profile towards cruise_configs
-    source ~/.cruise_configs/.cruise_rc
 fi
