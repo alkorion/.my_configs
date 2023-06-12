@@ -15,7 +15,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export VAULT_ADDR=https://vault.robot.car:8200
 
 # Specify non-standard location of git-completion.bash
-zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.bash
+zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.zsh
 
 # Add completion script to fpath. See git-completion.zsh docstring for more details
 fpath=(~/.my_configs/zsh $fpath)
