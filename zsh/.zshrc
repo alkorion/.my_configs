@@ -11,9 +11,6 @@ export ZSH="$HOME/.oh-my-zsh"
 source ~/.my_configs/git/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 
-# add vault URL to ENV variables (Cruise specific)
-export VAULT_ADDR=https://vault.robot.car:8200
-
 # Specify non-standard location of git-completion.bash
 zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.zsh
 
@@ -117,3 +114,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# == Zoox Specific Settings ==
+
+# quick source for BOX remote connection
+alias rad="source ~/workspace/repos/zoox_tools/radb.sh"
+
+export PATH=$PATH:/Users/aiyra/.nexustools
