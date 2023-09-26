@@ -11,12 +11,6 @@ export ZSH="$HOME/.oh-my-zsh"
 source ~/.my_configs/git/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 
-# Specify non-standard location of git-completion.bash
-zstyle ':completion:*:*:git:*' script ~/.my_configs/git/git-completion.zsh
-
-# Add completion script to fpath. See git-completion.zsh docstring for more details
-fpath=(~/.my_configs/zsh $fpath)
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -114,6 +108,14 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Make z-completion suite work. See https://stackoverflow.com/questions/26462667/git-completion-not-working-in-zsh-on-os-x-yosemite-with-homebrew
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # == Zoox Specific Settings ==
 
