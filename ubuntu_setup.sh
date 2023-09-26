@@ -36,6 +36,8 @@ ln -sf ~/.my_configs/vim/.vimrc ~/.vimrc
 
 # Set Vim as default git text-editor
 git config --global core.editor "vim"
+# automatically prune stale local branches
+git config --global fetch.prune true
 
 if [ ! -d "$HOME/workspace/repos" ]
 then
