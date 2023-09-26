@@ -53,6 +53,9 @@ if [[ $? != 0 ]] ; then
 else
     brew update
 fi
+# Homebrew installs
+brew install zsh-completion
+
 
 # Set Vim as default git text-editor
 git config --global core.editor "vim"
