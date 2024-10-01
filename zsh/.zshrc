@@ -119,7 +119,16 @@ fi
 
 # == Zoox Specific Settings ==
 
-# quick source for BOX remote connection
+# quick source for BOX remote connection 
+# RFSTest1:
 alias rad="source ~/workspace/repos/zoox_tools/radb.sh"
+# BOX 2.0 desktop
+alias rad_box_2="source ~/workspace/repos/zoox_tools/radb.sh custom 3415-desktop"
 
-export PATH=$PATH:/Users/aiyra/.nexustools
+
+export PATH=$PATH:/Users/aiyra/.nexustoolsexport VAULT_ADDR=https://vault.zooxlabs.com:8200
+
+# Android Stuff
+export ANDROID_HOME="/Users/aiyra/Library/Android/sdk"
+export PATH="${PATH}:${ANDROID_HOME}/cmdline-tools:${ANDROID_HOME}/cmdline-tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_BUILD_TOOLS}"
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
