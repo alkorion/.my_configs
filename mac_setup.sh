@@ -79,7 +79,7 @@ fi
 if [ ! -d "$HOME/workspace/repos/solarized" ]
 then
 	cd ~/workspace/repos/
-	git clone git://github.com/altercation/solarized.git
+	git clone git@github.com:altercation/solarized.git
 fi
 
 # TODO: Install Sublime via command line
