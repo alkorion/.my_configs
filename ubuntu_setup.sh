@@ -32,6 +32,8 @@ function prompt() {
 
 # add symlinks for common configs
 ln -sf ~/.my_configs/vim/.vimrc ~/.vimrc
+ln -sf ~/.my_configs/bash/.bashrc ~/.bashrc
+ln -sf ~/.my_configs/tmux/.tmux.conf ~/.tmux.conf
 
 
 # Set Vim as default git text-editor
