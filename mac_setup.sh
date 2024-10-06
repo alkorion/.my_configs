@@ -34,6 +34,9 @@ function prompt() {
 ln -sf ~/.my_configs/vim/.vimrc ~/.vimrc
 ln -sf ~/.my_configs/bash/.bash_profile ~/.bash_profile
 
+# Configure github with user info
+$ git config --global user.name "Alessandro Iyra"
+$ git config --global user.email al.iyra.co@gmail.com
 
 # Install Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ] 
