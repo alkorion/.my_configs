@@ -124,6 +124,8 @@ fi
 alias rad="source ~/workspace/repos/zoox_tools/radb.sh"
 # BOX 2.0 desktop
 alias rad_box_2="source ~/workspace/repos/zoox_tools/radb.sh custom 3415-desktop"
+# BOX 3.0 desktop
+alias rad_box_3="source ~/workspace/repos/zoox_tools/radb.sh custom 5533-desktop"
 
 
 export PATH=$PATH:/Users/aiyra/.nexustoolsexport VAULT_ADDR=https://vault.zooxlabs.com:8200
