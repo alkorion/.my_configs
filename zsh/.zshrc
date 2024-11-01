@@ -1,4 +1,4 @@
-# Alessandro Lira's Zsh RC file
+# Alessandro Iyra's Zsh RC file
 # -----------------------------
 
 # If you come from bash you might have to change your $PATH.
@@ -116,6 +116,11 @@ if type brew &>/dev/null; then
   autoload -Uz compinit
   compinit
 fi
+
+# == Personal Aliases ==
+
+# bring up .ssh/config
+alias ssh_config="subl ~/.ssh/config"
 
 # == Zoox Specific Settings ==
 
