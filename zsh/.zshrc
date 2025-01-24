@@ -139,3 +139,8 @@ export PATH=$PATH:/Users/aiyra/.nexustoolsexport VAULT_ADDR=https://vault.zooxla
 export ANDROID_HOME="/Users/aiyra/Library/Android/sdk"
 export PATH="${PATH}:${ANDROID_HOME}/cmdline-tools:${ANDROID_HOME}/cmdline-tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_BUILD_TOOLS}"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+
+# Pallet penv setup
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
