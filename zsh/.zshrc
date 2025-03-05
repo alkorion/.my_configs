@@ -122,6 +122,9 @@ fi
 # bring up .ssh/config
 alias ssh_config="subl ~/.ssh/config"
 
+# git
+alias glogo='git log --pretty=oneline --graph'
+
 # == Zoox Specific Settings ==
 
 # quick source for BOX remote connection 
