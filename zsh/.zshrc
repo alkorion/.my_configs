@@ -120,7 +120,8 @@ fi
 # == Personal Aliases ==
 
 # bring up .ssh/config
-alias ssh_config="subl ~/.ssh/config"
+alias ssh_config="subl ~/.zoox_configs/ssh/config"
+
 
 # git
 alias glogo='git log --pretty=oneline --graph'
