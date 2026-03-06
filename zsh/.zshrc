@@ -148,3 +148,64 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+
+# ------------------------------------------------------
+## Alerts
+# vscode requires turning bell sound setting to on for this to work (remote machine triggers sound on local machine when \a is echoed)
+# Accessibility › Signals: Terminal Bell
+alias my.alert.vscode_chime='echo -ne "\a"'
+alias my.alert.vscode_two_chime='my.alert.vscode_chime; sleep .5 ; my.alert.vscode_chime'
+alias my.alert.vscode_four_chime='my.alert.vscode_two_chime; sleep .5 ; my.alert.vscode_two_chime'
+alias beep='my.alert.vscode_four_chime'
+# ------------------------------------------------------
+#region setup DEBUG trap functions
+# Declare an array of functions to be called on DEBUG trap
+# functions can be added like this:
+# DEBUG_TRAP_FUNCTIONS+=(preexec_warn)
+declare -a DEBUG_TRAP_FUNCTIONS=()
+run_debug_trap_functions() {
+    for func in "${DEBUG_TRAP_FUNCTIONS[@]}"; do
+        "$func"
+    done
+}
+trap 'run_debug_trap_functions' DEBUG
+#endregion setup DEBUG trap functions
+# ------------------------------------------------------
+# ------------------------------------------------------
+#region Setup command runtime tracking
+export LONG_COMMAND_THRESHOLD_SEC=30
+setup_my_command_timer() {
+    echo "Setting up command timer"
+    # sets start time and that there is a command be tracked
+    my_set_start_timer() {
+        if [[ -z "$CMD_STARTED" ]]; then
+            MY_CMD_START_TIME=$(date +%s)
+            CMD_STARTED=1
+        fi
+    }
+    # configures a start time before any line of commands is run
+    # trap 'my_set_start_timer' DEBUG
+    DEBUG_TRAP_FUNCTIONS+=(my_set_start_timer)
+    # duration tracking, will be called via prompt command addition
+    my_command_timer() {
+        MY_CMD_END_TIME=$(date +%s)
+        MY_CMD_DURATION=$((MY_CMD_END_TIME - MY_CMD_START_TIME))
+        if [ "$MY_CMD_DURATION" -gt "${LONG_COMMAND_THRESHOLD_SEC:-60}" ]; then
+            echo "Long command run time: ($MY_CMD_DURATION seconds)"
+            beep
+        # else
+        #     echo "Short command run time: ($MY_CMD_DURATION seconds)"
+        fi
+        unset CMD_STARTED
+    }
+    # dont want to clear existing prompt command if exists
+    if [[ -n "$PROMPT_COMMAND" ]]; then
+        PROMPT_COMMAND="$PROMPT_COMMAND; my_command_timer"
+    else
+        PROMPT_COMMAND="my_command_timer"
+    fi
+}
+setup_my_command_timer
+#endregion Setup command runtime tracking
+# ------------------------------------------------------
