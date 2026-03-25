@@ -209,3 +209,4 @@ setup_my_command_timer() {
 setup_my_command_timer
 #endregion Setup command runtime tracking
 # ------------------------------------------------------
+export PATH="$HOME/.local/bin:$PATH"
