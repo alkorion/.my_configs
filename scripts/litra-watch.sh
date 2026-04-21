@@ -4,7 +4,7 @@
 # Uses a debounce timer to ignore the brief on/off flicker Firefox emits
 # during camera negotiation at session startup.
 
-LITRA="$(brew --prefix)/bin/litra"
+LITRA="/opt/homebrew/bin/litra"
 DEBOUNCE=2  # seconds to wait before acting on an event
 
 timer_pid=""
