@@ -8,6 +8,10 @@ case $- in
       *) return;;
 esac
 
+# Idempotent PATH manipulation helpers: only add the entry if it isn't already present.
+_path_prepend() { case ":$PATH:" in *":$1:"*) ;; *) export PATH="$1:$PATH" ;; esac; }
+_path_append()  { case ":$PATH:" in *":$1:"*) ;; *) export PATH="$PATH:$1" ;; esac; }
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -140,9 +144,112 @@ export PS1="$green\u$reset@$purple\h$reset:$blue\w$red\$(__git_ps1)$reset\$ "
 # set auto color mode for ls command
 alias ls='ls --color=auto'
 
-## == Aliases ==
+## == Personal Aliases ==
 
+# git
+alias glogo='git log --pretty=oneline --graph'
+alias gc='git checkout'
+alias gc-previous='git checkout -'
+alias gc-master='git checkout master'
+alias gm-master='git merge master'
+alias gpo='git pull origin $(git branch --show-current)'
+alias gb='git branch'
+alias gco='git checkout '
 
+# fetch + checkout / cherry-pick
+gfco() {
+    git fetch origin $1
+    git checkout $1
+}
+gfcp() {
+    git fetch origin $1
+    git cherry-pick $1
+}
+
+# Docker
+dbash() {
+    docker exec -it $1 /bin/bash
+}
+
+# re-source whichever rc file matches the current shell (works on Mac zsh and Ubuntu bash)
+alias sbc='[ -n "$ZSH_VERSION" ] && [ -f ~/.zshrc ] && source ~/.zshrc; [ -n "$BASH_VERSION" ] && [ -f ~/.bashrc ] && source ~/.bashrc'
+
+# reset terminal cursor shape (fixes stuck block cursor after some TUIs exit)
+alias fix_caret="printf '\e[0 q'"
+
+# ssh wrapper: silence harmless LocalForward bind-collision noise (e.g., when
+# Cursor already holds the forwarded port). Real connection errors still pass through.
+ssh() {
+    command ssh "$@" 2> >(
+        grep --line-buffered -vE 'channel_setup_fwd_listener_tcpip: cannot listen to port|: Address already in use$|Could not request local forwarding\.?$' >&2
+    )
+}
+
+## == External Aliases ==
+# Source the zoox-specific bashrc if present. Fails silently if absent.
+[ -f ~/.zoox_configs/.zoox_bashrc ] && source ~/.zoox_configs/.zoox_bashrc
+
+# ------------------------------------------------------
+## Alerts
+# vscode requires turning bell sound setting to on for this to work (remote machine triggers sound on local machine when \a is echoed)
+# Accessibility › Signals: Terminal Bell
+alias my.alert.vscode_chime='echo -ne "\a"'
+alias my.alert.vscode_two_chime='my.alert.vscode_chime; sleep .5 ; my.alert.vscode_chime'
+alias my.alert.vscode_four_chime='my.alert.vscode_two_chime; sleep .5 ; my.alert.vscode_two_chime'
+alias beep='my.alert.vscode_four_chime'
+# ------------------------------------------------------
+#region setup DEBUG trap functions
+# Declare an array of functions to be called on DEBUG trap
+# functions can be added like this:
+# DEBUG_TRAP_FUNCTIONS+=(preexec_warn)
+declare -a DEBUG_TRAP_FUNCTIONS=()
+run_debug_trap_functions() {
+    for func in "${DEBUG_TRAP_FUNCTIONS[@]}"; do
+        "$func"
+    done
+}
+trap 'run_debug_trap_functions' DEBUG
+#endregion setup DEBUG trap functions
+# ------------------------------------------------------
+#region Setup command runtime tracking
+export LONG_COMMAND_THRESHOLD_SEC=30
+setup_my_command_timer() {
+    echo "Setting up command timer"
+    # sets start time and that there is a command be tracked
+    my_set_start_timer() {
+        if [[ -z "$CMD_STARTED" ]]; then
+            MY_CMD_START_TIME=$(date +%s)
+            CMD_STARTED=1
+        fi
+    }
+    # configures a start time before any line of commands is run
+    # trap 'my_set_start_timer' DEBUG
+    DEBUG_TRAP_FUNCTIONS+=(my_set_start_timer)
+    # duration tracking, will be called via prompt command addition
+    my_command_timer() {
+        MY_CMD_END_TIME=$(date +%s)
+        MY_CMD_DURATION=$((MY_CMD_END_TIME - MY_CMD_START_TIME))
+        if [ "$MY_CMD_DURATION" -gt "${LONG_COMMAND_THRESHOLD_SEC:-60}" ]; then
+            echo "Long command run time: ($MY_CMD_DURATION seconds)"
+            beep
+        # else
+        #     echo "Short command run time: ($MY_CMD_DURATION seconds)"
+        fi
+        unset CMD_STARTED
+    }
+    # dont want to clear existing prompt command if exists
+    if [[ -n "$PROMPT_COMMAND" ]]; then
+        PROMPT_COMMAND="$PROMPT_COMMAND; my_command_timer"
+    else
+        PROMPT_COMMAND="my_command_timer"
+    fi
+}
+setup_my_command_timer
+#endregion Setup command runtime tracking
+# ------------------------------------------------------
+
+# Add ~/.local/bin to PATH (originally added by pipx). Prepended for parity with .zshrc.
+_path_prepend "$HOME/.local/bin"
 
 ## TMUX configs
 
