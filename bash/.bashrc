@@ -88,13 +88,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
+# `alert` for long-running commands. Linux-only (uses notify-send); kept here
+# since macOS doesn't have notify-send. Use like so:  sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
@@ -141,62 +136,15 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # export (apply) the new prompt settings
 export PS1="$green\u$reset@$purple\h$reset:$blue\w$red\$(__git_ps1)$reset\$ "
 
-# set auto color mode for ls command
-alias ls='ls --color=auto'
-
 ## == Personal Aliases ==
-
-# git
-alias glogo='git log --pretty=oneline --graph'
-alias gc='git checkout'
-alias gc-previous='git checkout -'
-alias gc-master='git checkout master'
-alias gm-master='git merge master'
-alias gpo='git pull origin $(git branch --show-current)'
-alias gb='git branch'
-alias gco='git checkout '
-
-# fetch + checkout / cherry-pick
-gfco() {
-    git fetch origin $1
-    git checkout $1
-}
-gfcp() {
-    git fetch origin $1
-    git cherry-pick $1
-}
-
-# Docker
-dbash() {
-    docker exec -it $1 /bin/bash
-}
-
-# re-source whichever rc file matches the current shell (works on Mac zsh and Ubuntu bash)
-alias sbc='[ -n "$ZSH_VERSION" ] && [ -f ~/.zshrc ] && source ~/.zshrc; [ -n "$BASH_VERSION" ] && [ -f ~/.bashrc ] && source ~/.bashrc'
-
-# reset terminal cursor shape (fixes stuck block cursor after some TUIs exit)
-alias fix_caret="printf '\e[0 q'"
-
-# ssh wrapper: silence harmless LocalForward bind-collision noise (e.g., when
-# Cursor already holds the forwarded port). Real connection errors still pass through.
-ssh() {
-    command ssh "$@" 2> >(
-        grep --line-buffered -vE 'channel_setup_fwd_listener_tcpip: cannot listen to port|: Address already in use$|Could not request local forwarding\.?$' >&2
-    )
-}
+# Cross-platform aliases live in ~/.my_configs/common/aliases.sh and are
+# also sourced by ~/.my_configs/zsh/.zshrc. Linux/bash-only stuff stays here.
+[ -f ~/.my_configs/common/aliases.sh ] && source ~/.my_configs/common/aliases.sh
 
 ## == External Aliases ==
 # Source the zoox-specific bashrc if present. Fails silently if absent.
 [ -f ~/.zoox_configs/.zoox_bashrc ] && source ~/.zoox_configs/.zoox_bashrc
 
-# ------------------------------------------------------
-## Alerts
-# vscode requires turning bell sound setting to on for this to work (remote machine triggers sound on local machine when \a is echoed)
-# Accessibility › Signals: Terminal Bell
-alias my.alert.vscode_chime='echo -ne "\a"'
-alias my.alert.vscode_two_chime='my.alert.vscode_chime; sleep .5 ; my.alert.vscode_chime'
-alias my.alert.vscode_four_chime='my.alert.vscode_two_chime; sleep .5 ; my.alert.vscode_two_chime'
-alias beep='my.alert.vscode_four_chime'
 # ------------------------------------------------------
 #region setup DEBUG trap functions
 # Declare an array of functions to be called on DEBUG trap

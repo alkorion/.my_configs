@@ -122,23 +122,9 @@ if type brew &>/dev/null; then
 fi
 
 # == Personal Aliases ==
-
-# git
-alias glogo='git log --pretty=oneline --graph'
-
-# re-source whichever rc file matches the current shell (works on Mac zsh and Ubuntu bash)
-alias sbc='[ -n "$ZSH_VERSION" ] && [ -f ~/.zshrc ] && source ~/.zshrc; [ -n "$BASH_VERSION" ] && [ -f ~/.bashrc ] && source ~/.bashrc'
-
-# reset terminal cursor shape (fixes stuck block cursor after some TUIs exit)
-alias fix_caret="printf '\e[0 q'"
-
-# ssh wrapper: silence harmless LocalForward bind-collision noise (e.g., when
-# Cursor already holds the forwarded port). Real connection errors still pass through.
-ssh() {
-    command ssh "$@" 2> >(
-        grep --line-buffered -vE 'channel_setup_fwd_listener_tcpip: cannot listen to port|: Address already in use$|Could not request local forwarding\.?$' >&2
-    )
-}
+# Cross-platform aliases live in ~/.my_configs/common/aliases.sh and are
+# also sourced by ~/.my_configs/bash/.bashrc. macOS/zsh-only stuff stays here.
+[ -f ~/.my_configs/common/aliases.sh ] && source ~/.my_configs/common/aliases.sh
 
 # == External Aliases ==
 # Source the zoox-specific zshrc if present. Fails silently if absent.
@@ -150,13 +136,5 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 
 
-# ------------------------------------------------------
-## Alerts
-# vscode requires turning bell sound setting to on for this to work (remote machine triggers sound on local machine when \a is echoed)
-# Accessibility › Signals: Terminal Bell
-alias my.alert.vscode_chime='echo -ne "\a"'
-alias my.alert.vscode_two_chime='my.alert.vscode_chime; sleep .5 ; my.alert.vscode_chime'
-alias my.alert.vscode_four_chime='my.alert.vscode_two_chime; sleep .5 ; my.alert.vscode_two_chime'
-alias beep='my.alert.vscode_four_chime'
 # ------------------------------------------------------
 _path_prepend "$HOME/.local/bin"
