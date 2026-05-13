@@ -59,6 +59,13 @@ fi
 # Homebrew installs
 brew install zsh-completion
 
+# Install WezTerm (cross-platform terminal with OSC 8 clickable URLs)
+if ! brew list --cask wezterm &>/dev/null; then
+    brew install --cask wezterm
+fi
+mkdir -p ~/.config/wezterm
+ln -sf ~/.my_configs/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
+
 
 # Set Vim as default git text-editor
 git config --global core.editor "vim"

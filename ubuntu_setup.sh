@@ -54,6 +54,16 @@ then
     ~/.fzf/install
 fi
 
+# Install WezTerm (cross-platform terminal with OSC 8 clickable URLs)
+if ! command -v wezterm &>/dev/null; then
+    curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+    echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+    sudo apt-get update
+    sudo apt-get install -y wezterm
+fi
+mkdir -p ~/.config/wezterm
+ln -sf ~/.my_configs/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
+
 # TODO: Install Sublime via command line
 #   Add sublime command "subl" to the $PATH variable (TODO: choose right application path and $PATH variable dirctory to make link)
 #   sudo ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
