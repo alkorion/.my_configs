@@ -54,6 +54,10 @@ dbash() {
     docker exec -it "$1" /bin/bash
 }
 
+# == claude ==
+
+alias cl-r='claude --resume'
+
 # == terminal hygiene ==
 
 # Re-source whichever rc file matches the current shell.
