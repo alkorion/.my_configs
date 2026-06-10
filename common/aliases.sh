@@ -56,7 +56,7 @@ dbash() {
 
 # == claude ==
 
-alias cl-r='claude --resume'
+alias clr='claude --resume'
 
 # == terminal hygiene ==
 
