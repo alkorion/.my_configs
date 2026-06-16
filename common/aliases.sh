@@ -60,9 +60,19 @@ alias clr='claude --resume'
 
 # == terminal hygiene ==
 
-# Re-source whichever rc file matches the current shell.
-# Works on Mac zsh and Ubuntu bash.
-alias sbc='[ -n "$ZSH_VERSION" ] && [ -f ~/.zshrc ] && source ~/.zshrc; [ -n "$BASH_VERSION" ] && [ -f ~/.bashrc ] && source ~/.bashrc'
+# `sauce` — re-source whichever rc matches the current shell so the live
+# shell picks up the latest config. Shell-aware: zsh -> ~/.zshrc,
+# bash -> ~/.bashrc. Whatever those rc files conditionally pull in gets
+# reloaded along with them.
+sauce() {
+  local rc
+  if   [ -n "$ZSH_VERSION" ];  then rc=~/.zshrc
+  elif [ -n "$BASH_VERSION" ]; then rc=~/.bashrc
+  else echo "sauce: unrecognized shell" >&2; return 1
+  fi
+  [ -f "$rc" ] || { echo "sauce: $rc not found" >&2; return 1; }
+  source "$rc" && echo "sauce: reloaded $rc"
+}
 
 # Reset cursor shape after some TUIs leave it as a steady block.
 alias fix_caret="printf '\e[0 q'"
