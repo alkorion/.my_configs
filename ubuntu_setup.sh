@@ -54,12 +54,24 @@ then
     ~/.fzf/install
 fi
 
-# Install WezTerm (cross-platform terminal with OSC 8 clickable URLs)
+# Install WezTerm (cross-platform terminal with OSC 8 clickable URLs).
+# The apt.fury.io/wez repo only carries the LATEST build, which requires
+# glibc >= 2.35 / libssl3 (Ubuntu 22.04+). On older releases (e.g. 20.04
+# focal, glibc 2.31) those deps are unsatisfiable, so guard on the Ubuntu
+# version and skip with a clear message rather than leaving apt in a
+# "held broken packages" state.
 if ! command -v wezterm &>/dev/null; then
-    curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
-    echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
-    sudo apt-get update
-    sudo apt-get install -y wezterm
+    ubuntu_ver="$(. /etc/os-release 2>/dev/null; echo "${VERSION_ID:-0}")"
+    if [ "$(printf '%s\n%s\n' "22.04" "$ubuntu_ver" | sort -V | head -n1)" = "22.04" ]; then
+        curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+        echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+        sudo apt-get update
+        sudo apt-get install -y wezterm
+    else
+        echo "[skip] WezTerm apt package needs Ubuntu >= 22.04 (glibc >= 2.35 / libssl3);"
+        echo "       this is Ubuntu ${ubuntu_ver}. Install the official Ubuntu20.04 .deb"
+        echo "       manually from https://github.com/wez/wezterm/releases if you want it."
+    fi
 fi
 mkdir -p ~/.config/wezterm
 ln -sf ~/.my_configs/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
