@@ -176,14 +176,17 @@ setup_my_command_timer() {
     # duration tracking, will be called via prompt command addition
     my_command_timer() {
         MY_CMD_END_TIME=$(date +%s)
-        MY_CMD_DURATION=$((MY_CMD_END_TIME - MY_CMD_START_TIME))
-        if [ "$MY_CMD_DURATION" -gt "${LONG_COMMAND_THRESHOLD_SEC:-60}" ]; then
-            echo "Long command run time: ($MY_CMD_DURATION seconds)"
-            beep
-        # else
-        #     echo "Short command run time: ($MY_CMD_DURATION seconds)"
+        if [[ -n "$MY_CMD_START_TIME" ]]; then
+            MY_CMD_DURATION=$((MY_CMD_END_TIME - MY_CMD_START_TIME))
+            if [ "$MY_CMD_DURATION" -gt "${LONG_COMMAND_THRESHOLD_SEC:-60}" ]; then
+                echo "Long command run time: ($MY_CMD_DURATION seconds)"
+                beep
+            # else
+            #     echo "Short command run time: ($MY_CMD_DURATION seconds)"
+            fi
         fi
         unset CMD_STARTED
+        unset MY_CMD_START_TIME
     }
     # dont want to clear existing prompt command if exists
     if [[ -n "$PROMPT_COMMAND" ]]; then
