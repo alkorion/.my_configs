@@ -140,26 +140,30 @@ eval "$(pyenv init -)"
 _path_prepend "$HOME/.local/bin"
 
 # == Terminal.app theme switching on SSH ==
-# Switches the Terminal.app window to the "Solarized Light ansi" profile while
-# connected to specific hosts, then restores the default "Solarized Dark ansi"
-# profile when the session ends. macOS/Terminal.app-only, so it lives here
-# rather than in the cross-platform aliases file.
-_ssh_theme_hosts=(office_desktop_1)
+# Switches the Terminal.app window to a per-host profile while connected, then
+# restores the default "Solarized Dark ansi" profile when the session ends.
+# macOS/Terminal.app-only, so it lives here rather than in the cross-platform
+# aliases file.
+typeset -gA _ssh_theme_map
+_ssh_theme_map=(
+  office_desktop_1 "Solarized Light ansi"
+  vdi              "Monokai_Classic"
+)
 
 # Overrides the cross-platform ssh() in ~/.my_configs/common/aliases.sh (which
 # still applies as-is under bash) so zsh/Terminal.app sessions get theme
 # switching on top of the existing stderr-noise filtering.
 ssh() {
-  local switch_theme=false arg
+  local theme="" arg
   for arg in "$@"; do
-    if (( ${_ssh_theme_hosts[(Ie)$arg]} )); then
-      switch_theme=true
+    if [[ -n "${_ssh_theme_map[$arg]}" ]]; then
+      theme="${_ssh_theme_map[$arg]}"
       break
     fi
   done
 
-  if [[ "$switch_theme" == true && "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
-    osascript -e 'tell application "Terminal" to set current settings of front window to settings set "Solarized Light ansi"' >/dev/null 2>&1
+  if [[ -n "$theme" && "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
+    osascript -e "tell application \"Terminal\" to set current settings of front window to settings set \"$theme\"" >/dev/null 2>&1
     command ssh "$@" 2> >(
         grep --line-buffered -vE 'channel_setup_fwd_listener_tcpip: cannot listen to port|: Address already in use$|Could not request local forwarding\.?$' >&2
     )
