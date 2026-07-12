@@ -146,7 +146,7 @@ _path_prepend "$HOME/.local/bin"
 # aliases file.
 typeset -gA _ssh_theme_map
 _ssh_theme_map=(
-  office_desktop_1 "Solarized Light ansi"
+  office_desktop_1 "Solarized Dark ansi"
   vdi              "Monokai_Classic"
 )
 
