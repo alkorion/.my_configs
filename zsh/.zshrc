@@ -148,7 +148,7 @@ typeset -gA _ssh_theme_map
 _ssh_theme_map=(
   office_desktop_1 "Solarized Dark ansi"
   vdi              "Monokai_Classic"
-  kvm_vdi          "catppuccin-frappe"
+  kvm_vdi          "catppuccin-mocha"
 )
 
 # Overrides the cross-platform ssh() in ~/.my_configs/common/aliases.sh (which
