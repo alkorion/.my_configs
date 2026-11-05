@@ -20,8 +20,15 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=50000
+HISTFILESIZE=100000
+HISTTIMEFORMAT="%F %T "
+
+# Write each command to HISTFILE immediately so dropped ssh sessions / killed tmux panes don't lose history.
+case ";$PROMPT_COMMAND;" in
+    *"history -a"*) ;;
+    *) PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
+esac
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
