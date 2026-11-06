@@ -34,25 +34,27 @@ function prompt() {
 ln -sf ~/.my_configs/vim/.vimrc ~/.vimrc
 ln -sf ~/.my_configs/bash/.bash_profile ~/.bash_profile
 
-# Configure github with user info
-git config --global user.name "Alessandro Iyra"
-git config --global user.email al.iyra.co@gmail.com
+# Configure git user info only if unset, so re-runs don't clobber a work identity
+git config --global user.name >/dev/null || git config --global user.name "Alessandro Iyra"
+git config --global user.email >/dev/null || git config --global user.email al.iyra.co@gmail.com
 
-# Install Oh My Zsh
-if [ ! -d "$HOME/.oh-my-zsh" ] 
+# Install Oh My Zsh (RUNZSH=no: don't drop into a new shell mid-script; KEEP_ZSHRC: don't replace ~/.zshrc)
+if [ ! -d "$HOME/.oh-my-zsh" ]
 then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    ln -sf ~/.my_configs/zsh/.zshrc ~/.zshrc
-    ln -sf ~/.my_configs/zsh/.zshenv ~/.zshenv
-    # Add symlink for my custom oh-my-zsh theme in .my_configs
+    RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+ln -sf ~/.my_configs/zsh/.zshrc ~/.zshrc
+ln -sf ~/.my_configs/zsh/.zshenv ~/.zshenv
+if [ -d "$HOME/.oh-my-zsh/themes" ]
+then
     ln -sf ~/.my_configs/zsh/oh-my-zsh/themes/solarize-git.zsh-theme ~/.oh-my-zsh/themes/solarize-git.zsh-theme
 fi
 
 # Install homebrew
-which -s brew
-if [[ $? != 0 ]] ; then
-    # Install Homebrew
+if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Apple Silicon installs to /opt/homebrew, which isn't on PATH until a new shell
+    [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 else
     brew update
 fi
@@ -72,25 +74,14 @@ git config --global core.editor "vim"
 # automatically prune stale local branches
 git config --global fetch.prune true
 
-if [ ! -d "$HOME/workspace/repos" ]
-then
-    mkdir ~/workspace/; cd ~/workspace/; mkdir repos; cd -
-fi
+mkdir -p ~/workspace/repos
 
-# Add fuzzy-search cmd-line tool
-if [ ! -d "$HOME/.fzf/" ]
-then
-    cd ~/workspace/repos/
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
-fi
+# Add fuzzy-search cmd-line tool (install step re-runs if a previous run cloned but didn't finish)
+[ -d "$HOME/.fzf" ] || git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+[ -f "$HOME/.fzf.zsh" ] || ~/.fzf/install
 
 # Add solarized color-theme
-if [ ! -d "$HOME/workspace/repos/solarized" ]
-then
-    cd ~/workspace/repos/
-    git clone git@github.com:altercation/solarized.git
-fi
+[ -d "$HOME/workspace/repos/solarized" ] || git clone git@github.com:altercation/solarized.git ~/workspace/repos/solarized
 
 # -------- Litra Glow auto-toggle setup --------
 # Installs the `litra` CLI and registers a LaunchAgent that automatically

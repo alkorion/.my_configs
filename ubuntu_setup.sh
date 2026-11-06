@@ -16,7 +16,7 @@ function inf() {
 }
 
 # prints [ERR] and the passed string in red font
-function inf() {
+function err() {
   echo -e "${RED}[ERR] $1${NC}"
   exit
 }
@@ -41,18 +41,11 @@ git config --global core.editor "vim"
 # automatically prune stale local branches
 git config --global fetch.prune true
 
-if [ ! -d "$HOME/workspace/repos" ]
-then
-	mkdir ~/workspace/; cd ~/workspace/; mkdir repos; cd -
-fi
+mkdir -p ~/workspace/repos
 
-# Add fuzzy-search cmd-line tool
-if [ ! -d "$HOME/.fzf/" ]
-then
-    cd ~/workspace/repos/
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
-fi
+# Add fuzzy-search cmd-line tool (install step re-runs if a previous run cloned but didn't finish)
+[ -d "$HOME/.fzf" ] || git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+[ -f "$HOME/.fzf.bash" ] || ~/.fzf/install
 
 # Install WezTerm (cross-platform terminal with OSC 8 clickable URLs).
 # The apt.fury.io/wez repo only carries the LATEST build, which requires
