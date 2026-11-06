@@ -149,8 +149,8 @@ export PS1="$green\u$reset@$purple\h$reset:$blue\w$red\$(__git_ps1)$reset\$ "
 [ -f ~/.my_configs/common/aliases.sh ] && source ~/.my_configs/common/aliases.sh
 
 ## == External Aliases ==
-# Source the zoox-specific bashrc if present. Fails silently if absent.
-[ -f ~/.zoox_configs/.zoox_bashrc ] && source ~/.zoox_configs/.zoox_bashrc
+# Optional per-machine/work overrides, kept out of this repo. Fails silently if absent.
+[ -f ~/.local_configs/bashrc ] && source ~/.local_configs/bashrc
 
 # ------------------------------------------------------
 #region setup DEBUG trap functions

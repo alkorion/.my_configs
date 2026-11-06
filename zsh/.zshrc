@@ -126,9 +126,12 @@ fi
 # also sourced by ~/.my_configs/bash/.bashrc. macOS/zsh-only stuff stays here.
 [ -f ~/.my_configs/common/aliases.sh ] && source ~/.my_configs/common/aliases.sh
 
-# == External Aliases ==
-# Source the zoox-specific zshrc if present. Fails silently if absent.
-[ -f ~/.zoox_configs/.zoox_zshrc ] && source ~/.zoox_configs/.zoox_zshrc
+# ssh host -> Terminal.app profile map; populated by machine-local config (see ssh() below).
+typeset -gA _ssh_theme_map
+
+# == Machine-local config ==
+# Optional per-machine/work overrides, kept out of this repo. Fails silently if absent.
+[ -f ~/.local_configs/zshrc ] && source ~/.local_configs/zshrc
 
 # Pallet penv setup
 export PYENV_ROOT="$HOME/.pyenv"
@@ -140,16 +143,10 @@ eval "$(pyenv init -)"
 _path_prepend "$HOME/.local/bin"
 
 # == Terminal.app theme switching on SSH ==
-# Switches the Terminal.app window to a per-host profile while connected, then
-# restores the default "Solarized Dark ansi" profile when the session ends.
-# macOS/Terminal.app-only, so it lives here rather than in the cross-platform
-# aliases file.
-typeset -gA _ssh_theme_map
-_ssh_theme_map=(
-  office_desktop_1 "Solarized Dark ansi"
-  vdi              "Monokai_Classic"
-  kvm_vdi          "catppuccin-mocha"
-)
+# Switches the Terminal.app window to a per-host profile (from _ssh_theme_map)
+# while connected, then restores the default "Solarized Dark ansi" profile when
+# the session ends. macOS/Terminal.app-only, so it lives here rather than in the
+# cross-platform aliases file.
 
 # Overrides the cross-platform ssh() in ~/.my_configs/common/aliases.sh (which
 # still applies as-is under bash) so zsh/Terminal.app sessions get theme
