@@ -1,2 +1,2 @@
-# Alessandro Lira's Zsh Env file
+# Alessandro Iyra's Zsh Env file
 # ------------------------------

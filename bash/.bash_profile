@@ -1,4 +1,4 @@
-# Alessandro Lira's BASH Profile
+# Alessandro Iyra's BASH Profile
 # ------------------------------
 
 # Setting PATH for Python 2.7

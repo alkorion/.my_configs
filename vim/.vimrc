@@ -1,5 +1,5 @@
 " My .vimrc file
-" Alessandro Lira
+" Alessandro Iyra
 
 
 " Add line numbers:
